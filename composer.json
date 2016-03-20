@@ -5,6 +5,7 @@
     "keywords": ["yii2", "extension", "swivel", "helper", "component", "behavior"],
     "homepage": "https://github.com/DanaLuther/yii2-swivel",
     "license": "BSD-3-Clause",
+    "stability":"stable",
     "authors": [
         {
             "name": "Dana Luther",
