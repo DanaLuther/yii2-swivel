@@ -12,6 +12,11 @@ namespace dhluther\swivel;
 
 use Yii;
 
+/**
+ * Class SwivelComponent
+ * @package dhluther\swivel
+ * @property-read SwivelLogger $logger
+ */
 class SwivelComponent extends \yii\base\Object {
 
 	/**
@@ -39,7 +44,12 @@ class SwivelComponent extends \yii\base\Object {
 	/**
 	 * @var string The class name for the model holding the swivel map data
 	 */
-	public $modelClass = 'SwivelFeature';
+	public $modelClass = 'dhluther\swivel\SwivelFeature';
+
+	/**
+	 * @var string The class name for the model interfacing with the swivel native logger
+	 */
+	public $loggerClass = 'dhluther\swivel\SwivelLogger';
 
 	/**
 	 * @var string The default Cookie to store the swivel bucket information for the user
@@ -74,16 +84,19 @@ class SwivelComponent extends \yii\base\Object {
 
 	public function init()
 	{
+		Yii::trace('Initializing Swivel Component.' , 'application.swivel');
 		parent::init();
 
 		if ( $this->autoCreateSwivelTable )
 		{
+			Yii::trace('Checking for swivel table.', 'application.swivel');
 			/** @var \yii\db\Connection $db */
 			$db = Yii::$app->{$this->dbComponent};
 			try {
-				$db->createCommand()->delete( $this->swivelTableAlias, '0=1');
+				$db->createCommand()->delete( $this->swivelTableAlias, '0=1')->execute();
 			} catch ( \Exception $e )
 			{
+				Yii::trace('Swivel table does not exist - creating.', 'application.swivel');
 				$this->initSwivelTable( $db, $this->swivelTableAlias );
 			}
 		}
@@ -163,11 +176,12 @@ class SwivelComponent extends \yii\base\Object {
 	 */
 	protected function checkAndApplyIndex()
 	{
-		if ( !Yii::$app->session->has( $this->cookieName ))
+		if ( !Yii::$app->session->has( $this->cookieName ) )
 		{
-			Yii::$app->session->set( $this->cookieName,  $this->defaultBucketGenerator() );
+			Yii::$app->session->set( $this->cookieName, $this->defaultBucketGenerator() );
 			$this->getLogger()->debug( 'Set default bucket value for new user.', [ 'Bucket ID' => Yii::$app->session->get( $this->cookieName ) ] );
 		}
+
 		return Yii::$app->session->get( $this->cookieName );
 	}
 
@@ -188,13 +202,14 @@ class SwivelComponent extends \yii\base\Object {
 	 */
 	protected function initSwivelTable( $db, $tableName  )
 	{
+		Yii::trace('Creating Swivel Feature Table', 'application.swivel');
 		$db->createCommand()->createTable($tableName, [
 				'id'=>'INT PRIMARY KEY AUTO_INCREMENT',
 				'slug'=>'MEDIUMTEXT',   // enable more than 254 chars for slug since they have . subfeatures
 				'buckets'=>'TINYTEXT',  // 10 bucket system, so never more than 18 chars currently
 				'INDEX ix_slug( slug(8) )',
 			]
-		);
+		)->execute();
 	}
 	/**
 	 * Default Log option -- can be overridden by passing a different logger through the config, or by extending this
@@ -204,7 +219,7 @@ class SwivelComponent extends \yii\base\Object {
 	 */
 	protected function getDefaultLogger()
 	{
-		return new SwivelLogger();
+		return new $this->loggerClass;
 	}
 	/**
 	 * @param \Psr\Log\LoggerInterface $logger

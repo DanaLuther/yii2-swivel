@@ -86,7 +86,7 @@ class SwivelLoader
 	protected function getModel()
 	{
 		//return SwivelFeature::model( $this->options[ 'ModelAlias' ] );
-		return SwivelFeature::find();
+		return new $this->options['ModelAlias'];
 	}
 
 	/**
