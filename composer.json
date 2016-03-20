@@ -22,7 +22,7 @@
         "issues": "https://github.com/DanaLuther/yii3-swivel/issues"
     },
     "autoload": {
-        "psr-r": {
+        "psr-4": {
             "dhluther\\swivel\\":"src/"
         }
     }
