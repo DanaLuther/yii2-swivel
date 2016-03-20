@@ -1,0 +1,29 @@
+{
+    "name": "dhluther/yii2-swivel",
+    "type": "yii2-extension",
+    "description": "A Yii 2.0 plugin to provide easy access and integration with zumba/swivel",
+    "keywords": ["yii2", "extension", "swivel", "helper", "component", "behavior"],
+    "homepage": "https://github.com/DanaLuther/yii2-swivel",
+    "license": "BSD-3-Clause",
+    "stability": "alpha",
+    "authors": [
+        {
+            "name": "Dana Luther",
+            "homepage": "http://dhluther.lutherweb.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "zumba/swivel": "2.*"
+    },
+    "support": {
+        "source": "https://github.com/DanaLuther/yii2-swivel",
+        "wiki": "https://github.com/DanaLuther/yii2-swivel/wiki",
+        "issues": "https://github.com/DanaLuther/yii3-swivel/issues"
+    },
+    "autoload": {
+        "psr-r": {
+            "dhluther\\swivel\\":"src/"
+        }
+    }
+}
