@@ -163,12 +163,12 @@ class SwivelComponent extends \yii\base\Object {
 	 */
 	protected function checkAndApplyIndex()
 	{
-		if ( !Yii::$app->user->hasState( $this->cookieName ))
+		if ( !Yii::$app->session->has( $this->cookieName ))
 		{
-			Yii::$app->user->setState( $this->cookieName,  $this->defaultBucketGenerator() );
-			$this->getLogger()->debug( 'Set default bucket value for new user.', [ 'Bucket ID' => Yii::$app->user->getState( $this->cookieName ) ] );
+			Yii::$app->session->set( $this->cookieName,  $this->defaultBucketGenerator() );
+			$this->getLogger()->debug( 'Set default bucket value for new user.', [ 'Bucket ID' => Yii::$app->session->get( $this->cookieName ) ] );
 		}
-		return Yii::$app->user->getState( $this->cookieName );
+		return Yii::$app->session->get( $this->cookieName );
 	}
 
 	/**
