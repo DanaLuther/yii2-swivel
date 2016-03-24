@@ -14,7 +14,6 @@ protected folder. If you need to change that location, simply update the extensi
  	'class'=>'dhluther\swivel\SwivelComponent' 
  ],
 ```
-```
 
 ### Access from the application
 ```php
