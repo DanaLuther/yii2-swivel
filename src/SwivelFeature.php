@@ -44,6 +44,8 @@ class SwivelFeature extends \yii\db\ActiveRecord
 
 	public function getBucketData()
 	{
+		if ( !$this->buckets || $this->buckets == '' )
+			return null;
 		return explode( self::DELIMITER, $this->buckets );
 	}
 
