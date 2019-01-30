@@ -10,6 +10,9 @@
 
 namespace dhluther\swivel;
 
+use Psr\Log\LogLevel;
+use yii\log\Logger;
+
 class SwivelLogger extends \Psr\Log\AbstractLogger
 {
 	public $category = 'application.swivel';
@@ -23,7 +26,31 @@ class SwivelLogger extends \Psr\Log\AbstractLogger
 	 * @return null
 	 */
 	public function log($level, $message, array $context = array()){
-		return \Yii::getLogger()->log( $message.PHP_EOL.\yii\helpers\VarDumper::dumpAsString($context), $level , $this->category );
+		return \Yii::getLogger()->log( $message.PHP_EOL.\yii\helpers\VarDumper::dumpAsString($context), $this->getLogLevelAsInt($level) , $this->category );
+	}
+
+	protected function getLogLevelAsInt( $level )
+	{
+		switch( $level )
+		{
+			case LogLevel::DEBUG:
+				return Logger::LEVEL_TRACE;
+
+			case LogLevel::EMERGENCY:
+			case LogLevel::ERROR:
+			case LogLevel::CRITICAL:
+				return Logger::LEVEL_ERROR;
+
+			case LogLevel::ALERT:
+			case LogLevel::WARNING:
+				return Logger::LEVEL_WARNING;
+
+
+			case LogLevel::INFO:
+			case LogLevel::NOTICE:
+			default:
+				return Logger::LEVEL_INFO;
+		}
 	}
 
 }
