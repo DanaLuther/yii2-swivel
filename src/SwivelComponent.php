@@ -31,8 +31,13 @@ class SwivelComponent extends \yii\base\Object
 
     /**
      * @var bool Whether to create the swivel table automatically when it does not exist
+     *
+     * This value has been kept for backward compatibility and is not recommended for production environments. Use the
+     * provided migration to initialize the table:
+     *
+     * ./yii migrate --migrationPath=@dhluther/swivel/migrations
      */
-    public $autoCreateSwivelTable = true;
+    public $autoCreateSwivelTable = false;
 
     /**
      * @var string The component alias being used -- allows for multiple swivel installations in a single application

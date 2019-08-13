@@ -36,6 +36,11 @@ In the index.php bootstrap:
 require(__DIR__ . '/../vendor/autoload.php');
 ```
 
+Initialize the swivel table by running the following migration, after configuring the component in your application:
+```php
+./yii migrate --migrationPath=@dhluther/swivel/migrations
+```
+
 #### The ***Swivel*** Libraries 
 
 https://github.com/zumba/swivel 
