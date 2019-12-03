@@ -17,7 +17,7 @@ use Yii;
  * @package dhluther\swivel
  * @property-read SwivelLogger $logger
  */
-class SwivelComponent extends \yii\base\Object
+class SwivelComponent extends yii\base\BaseObject
 {
 
     /**
