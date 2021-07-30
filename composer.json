@@ -37,7 +37,7 @@
   },
   "require": {
     "php": ">=7.4",
-    "yiisoft/yii2": "^2.0.13 || ^3.0",
+    "yiisoft/yii2": "^2.0.13",
     "zumba/swivel": "^4.0"
   },
   "require-dev": {

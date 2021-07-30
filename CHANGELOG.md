@@ -16,7 +16,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Adopted true SemVer for future changes
 * Changed to implement strict typing for the package, with an eye towards php8 compatibility.
 * Changed the underlying swivel library package dependency (bumped from 2.x to 4.x)
-* Changed the underlying Yii Framework version dependency (Added the 3.x option)
 * Changed minimum PHP version to 7.4
 * Changed directory structure to be compatible with the Yii 3 method of separating namespaced content from resources.
 * Changed component references to leverage Yii's DI container
