@@ -1,0 +1,12 @@
+actor: UnitTester
+modules:
+    enabled:
+        - Asserts
+        - \Helper\Unit
+        - Yii2
+        - DataFactory:
+            factories: codeception/_support/factories
+            depends: Yii2
+    config:
+      Yii2:
+        configFile: 'codeception/config/unit.php'

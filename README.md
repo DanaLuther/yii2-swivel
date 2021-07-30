@@ -6,9 +6,6 @@ This plugin is based on the zumba/swivel-cake plugin.
 
 ### Configuration for Yii Component:
 
-By default, the component is assumed to be under the /protected/vendors/ directory, if your composer.json is under the
-protected folder. If you need to change that location, simply update the extensionAlias in the configuration array. 
-
 ```php
  'swivel' => [ 
  	'class'=>'dhluther\swivel\SwivelComponent' 
@@ -36,9 +33,32 @@ In the index.php bootstrap:
 require(__DIR__ . '/../vendor/autoload.php');
 ```
 
+### Add the swivel migration namespace to your migration command config
+```php
+'migrationNamespaces'=>[
+    'dhluther\\swivel\\migrations'
+]
+```
+with the alias of:
+```php
+'@dhluther\swivel'=>'@vendor/dhluther/swivel/src'
+```
+
+If you've already migrated this package in the past and want to mark it to the current migratoin via namespace, the command is
+```shell
+./yii migrate/mark dhluther\\swivel\\migrations\\m190812_083802
+```
+
+###--OR--
+### Migrate swivel once
 Initialize the swivel table by running the following migration, after configuring the component in your application:
 ```php
 ./yii migrate --migrationPath=@dhluther/swivel/migrations
+```
+
+### To add the composer vendor libraries for local development:
+```shell
+docker run --rm -v $PWD:/app composer update
 ```
 
 #### The ***Swivel*** Libraries 

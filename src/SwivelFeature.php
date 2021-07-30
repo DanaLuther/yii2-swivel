@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * SwivelFeature.php
  *
@@ -10,42 +11,57 @@
 
 namespace dhluther\swivel;
 
+use Yii;
+use yii\base\InvalidConfigException;
+use yii\db\ActiveRecord;
+use yii\db\Connection;
+use yii\helpers\ArrayHelper;
 
-class SwivelFeature extends \yii\db\ActiveRecord
+/**
+ * SwivelFeature
+ *
+ * The following are magic properties of the model, as established via ActiveRecord from the database
+ * @property string $slug
+ * @property string $buckets
+ */
+class SwivelFeature extends ActiveRecord implements SwivelDataSource
 {
     const DELIMITER = ',';
 
-    public static $componentAlias = 'swivel';
+    public static string $componentAlias = 'swivel';
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
-        return \Yii::$app->{self::$componentAlias}->swivelTableAlias;
+	    $component = SwivelComponent::loadSwivel(self::$componentAlias);
+        return $component->swivelTableAlias ?? 'swivel';
     }
 
     /**
-     * @return \yii\db\Connection the database connection used by this AR class.
-     * @throws \yii\base\InvalidConfigException
+     * @return Connection the database connection used by this AR class.
+     * @throws InvalidConfigException
      */
-    public static function getDb()
+    public static function getDb(): Connection
     {
-        return \Yii::$app->get(\Yii::$app->{self::$componentAlias}->dbComponent);
+	    $component = SwivelComponent::loadSwivel(self::$componentAlias);
+        return Yii::$app->get($component->dbComponent) ?? Yii::$app->getDb();
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['slug'], 'required'],
             [['buckets'], 'string', 'max' => 254],
+            [['slug'], 'string'],
         ];
     }
 
-    public function getBucketData()
+    public function getBucketData(): ?array
     {
         if (!$this->buckets || $this->buckets == '') {
             return null;
@@ -53,12 +69,21 @@ class SwivelFeature extends \yii\db\ActiveRecord
         return explode(self::DELIMITER, $this->buckets);
     }
 
+    public function beforeValidate()
+    {
+    	if (is_numeric($this->buckets))
+	    {
+	    	$this->buckets = (string)$this->buckets;
+	    }
+	    return parent::beforeValidate();
+    }
+
     /**
      * Format data from the active record to the data swivel expects
      *
      * @return array
      */
-    protected function formatRow()
+    protected function formatRow(): array
     {
         return [$this->slug => $this->getBucketData()];
     }
@@ -68,7 +93,7 @@ class SwivelFeature extends \yii\db\ActiveRecord
      *
      * @return array
      */
-    public function getMapData()
+    public function getMapData(): array
     {
         /** @var SwivelFeature[] $data */
         $data = self::find()->all();
@@ -77,7 +102,7 @@ class SwivelFeature extends \yii\db\ActiveRecord
         }
         $map = [];
         foreach ($data as $row) {
-            $map = \yii\helpers\ArrayHelper::merge($map, $row->formatRow());
+            $map = ArrayHelper::merge($map, $row->formatRow());
         }
         return $map;
     }

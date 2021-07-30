@@ -1,2 +1,6 @@
 vendor/*
 composer.lock
+auth.json
+tests/codeception/_output
+tests/codeception/runtime
+tests/codeception/_support/_generated

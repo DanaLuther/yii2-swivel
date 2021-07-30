@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * SwivelLogger.php
  *
@@ -10,12 +11,25 @@
 
 namespace dhluther\swivel;
 
+use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
+use Yii;
+use yii\helpers\VarDumper;
 use yii\log\Logger;
 
-class SwivelLogger extends \Psr\Log\AbstractLogger
+/**
+ * SwivelLogger
+ *
+ * This class acts as a mediator between the native Framework logging and the built-in Swivel library logging.
+ */
+class SwivelLogger extends AbstractLogger
 {
-    public $category = 'application.swivel';
+    public string $category = 'application.swivel';
+
+    public function __construct(string $category='application.swivel')
+    {
+    	$this->category = $category;
+    }
 
     /**
      * Logs with an arbitrary level.
@@ -23,14 +37,13 @@ class SwivelLogger extends \Psr\Log\AbstractLogger
      * @param mixed $level
      * @param string $message
      * @param array $context
-     * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
-        return \Yii::getLogger()->log($message . PHP_EOL . \yii\helpers\VarDumper::dumpAsString($context), $this->getLogLevelAsInt($level), $this->getLogCategory());
+        Yii::getLogger()->log($message . PHP_EOL . VarDumper::dumpAsString($context), $this->getLogLevelAsInt($level), $this->getLogCategory());
     }
 
-    public function getLogCategory()
+    public function getLogCategory(): string
     {
         return $this->category;
     }
@@ -38,41 +51,41 @@ class SwivelLogger extends \Psr\Log\AbstractLogger
     /**
      * @param string $category
      */
-    public function setLogCategory($category)
+    public function setLogCategory(string $category)
     {
         $this->category = $category;
     }
 
     /**
+     * Note: because it's casting as string, if a number is passed in, we need to handle those cases explicitly
      * @param string $level
      *
      * @return int
      */
-    public function getLogLevelAsInt($level)
+    public function getLogLevelAsInt(string $level): int
     {
-        if (is_int($level)) {
-            return $level;
-        }
-
         switch ($level) {
-            case LogLevel::DEBUG:
-                return Logger::LEVEL_TRACE;
+	        case LogLevel::DEBUG:
+	        case '8':
+		        return Logger::LEVEL_TRACE;
 
-            case LogLevel::EMERGENCY:
-            case LogLevel::ERROR:
-            case LogLevel::CRITICAL:
-                return Logger::LEVEL_ERROR;
+	        case LogLevel::EMERGENCY:
+	        case LogLevel::ERROR:
+	        case LogLevel::CRITICAL:
+	        case '1':
+		        return Logger::LEVEL_ERROR;
 
-            case LogLevel::ALERT:
+	        case LogLevel::ALERT:
             case LogLevel::WARNING:
+	        case '2':
                 return Logger::LEVEL_WARNING;
 
 
             case LogLevel::INFO:
             case LogLevel::NOTICE:
+	        case '4':
             default:
                 return Logger::LEVEL_INFO;
         }
     }
-
 }

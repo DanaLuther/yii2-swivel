@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * SwivelComponent.php
  *
@@ -10,7 +11,13 @@
 
 namespace dhluther\swivel;
 
+use Exception;
+use Psr\Log\LoggerInterface;
 use Yii;
+use yii\base\InvalidConfigException;
+use yii\db\Connection;
+use yii\helpers\ArrayHelper;
+use Zumba\Swivel\Builder;
 
 /**
  * Class SwivelComponent
@@ -21,13 +28,14 @@ class SwivelComponent extends yii\base\BaseObject
 {
 
     /**
-     * @var SwivelLoader
+     * @var ?SwivelLoader
      */
-    protected $loader;
+    protected ?SwivelLoader $loader=null;
+
     /**
      * @var array Options to be passed to the Config
      */
-    public $options = [];
+    public array $options = [];
 
     /**
      * @var bool Whether to create the swivel table automatically when it does not exist
@@ -36,89 +44,94 @@ class SwivelComponent extends yii\base\BaseObject
      * provided migration to initialize the table:
      *
      * ./yii migrate --migrationPath=@dhluther/swivel/migrations
+     * @deprecated
      */
-    public $autoCreateSwivelTable = false;
+    public bool $autoCreateSwivelTable = false;
 
     /**
      * @var string The component alias being used -- allows for multiple swivel installations in a single application
      */
-    public $componentAlias = 'swivel';
+    public string $componentAlias = 'swivel';
 
     /**
      * @var string The table name to be used to store the swivel features and associated buckets
      */
-    public $swivelTableAlias = 'swivel';
+    public string $swivelTableAlias = 'swivel';
     /**
      * @var string The Application component ID for the swivel database connection
      */
-    public $dbComponent = 'db';
+    public string $dbComponent = 'db';
 
     /**
      * @var string The class name for the model holding the swivel map data
      */
-    public $modelClass = 'dhluther\swivel\SwivelFeature';
+    public string $modelClass = 'dhluther\swivel\SwivelFeature';
 
     /**
      * @var string The class name for the model interfacing with the swivel native logger
      */
-    public $loggerClass = 'dhluther\swivel\SwivelLogger';
+    public string $loggerClass = 'dhluther\swivel\SwivelLogger';
 
     /**
      * @var string The category that messages should be logged to - will be passed to the Logger
+     * @deprecated set Logger category via DI:
+     * e.g.,
+     *      Yii::$container->set(SwivelLogger::class, ['category'=>'application.swivel']);
+     *
      */
-    public $loggerCategory = 'application.swivel';
+    public string $loggerCategory = 'application.swivel';
 
     /**
      * @var string The default Cookie to store the swivel bucket information for the user
      */
-    public $cookieName = 'Swivel_Bucket';
+    public string $cookieName = 'Swivel_Bucket';
     /**
      * The name of the property on the application user model that holds their assigned bucket identifier
      * If set to null, no property on the web user model will be examined
      * @var null|string
      */
-    public $userBucketProperty = null;
+    public ?string $userBucketProperty = null;
     /**
      * @var null|int The default bucket ID - if null, one will be randomly generated and assigned
      */
-    public $bucketIndex = null;
+    public ?int $bucketIndex = null;
 
     /**
      * This can be any callable - defaults to mt_rand(1,10)
      *
-     * @var callable The function or method to be called to generate the bucket index
+     * @var string|callable The function or method to be called to generate the bucket index
      */
-    public $generatorCallable = 'mt_rand';
+    public string $generatorCallable = 'mt_rand';
     /**
      * @var array Arguments to be passed to the generator
      */
-    public $generatorArgs = [1, 10];
+    public array $generatorArgs = [1, 10];
 
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var ?LoggerInterface
      */
-    protected $_logger;
+    protected ?LoggerInterface $_logger = null;
 
     public function init()
     {
-        Yii::trace('Initializing Swivel Component.', $this->loggerCategory);
+        Yii::debug('Initializing Swivel Component.', __METHOD__);
         parent::init();
 
+        // @codeCoverageIgnoreStart
         if ($this->autoCreateSwivelTable) {
-            Yii::trace('Checking for swivel table for ' . $this->dbComponent, $this->loggerCategory);
-            /** @var \yii\db\Connection $db */
-            $db = Yii::$app->{$this->dbComponent};
-            try {
-                $db->createCommand()->delete($this->swivelTableAlias, '0=1')->execute();
-            } catch (\Exception $e) {
-                Yii::trace('Swivel table does not exist - creating.', $this->loggerCategory);
-                $this->initSwivelTable($db, $this->swivelTableAlias);
-            }
+           Yii::error('Auto creation of swivel tables is no longer supported', __METHOD__);
         }
+        // @codeCoverageIgnoreEnd
 
         // If we have a registered user, assume they should have some property or magic method that holds their bucket ID
         if ($this->userBucketProperty) {
-            $this->bucketIndex = Yii::$app->user->{$this->userBucketProperty};
+        	try
+	        {
+		        $this->bucketIndex = Yii::$app->user->{$this->userBucketProperty};
+	        } catch (\Exception $e)
+	        {
+	        	Yii::error('Failed to locate user property for bucket index: '.$this->userBucketProperty, __METHOD__);
+	        }
         }
         // If no bucket has been selected, establish a cookie for the bucket identifier and use that for the duration
         // of the user's time on site - otherwise they will get a different bucket with each page load
@@ -126,16 +139,16 @@ class SwivelComponent extends yii\base\BaseObject
             $this->bucketIndex = $this->checkAndApplyIndex();
         }
 
-        $this->loader = new SwivelLoader(\yii\helpers\ArrayHelper::merge($this->getDefaultOptions(), $this->options));
+        $this->loader = new SwivelLoader(ArrayHelper::merge($this->getDefaultOptions(), $this->options));
     }
 
 
     /**
      * @param $slug
      *
-     * @return \Zumba\Swivel\Builder
+     * @return Builder
      */
-    public function forFeature($slug)
+    public function forFeature($slug): Builder
     {
         return $this->loader->getManager()->forFeature($slug);
     }
@@ -148,7 +161,7 @@ class SwivelComponent extends yii\base\BaseObject
      * @param mixed $b
      * @return mixed
      */
-    public function invoke($slug, $a, $b = null)
+    public function invoke(string $slug, $a, $b = null)
     {
         return $this->loader->getManager()->invoke($slug, $a, $b);
     }
@@ -158,13 +171,13 @@ class SwivelComponent extends yii\base\BaseObject
      * Shorthand syntactic sugar for invoking a simple feature behavior using Builder::addValue.
      * Useful for ternary style code.
      *
-     * @param $slug
+     * @param string $slug
      * @param $a
      * @param null $b
      *
      * @return mixed
      */
-    public function returnValue($slug, $a, $b = null)
+    public function returnValue(string $slug, $a, $b = null)
     {
         return $this->loader->getManager()->returnValue($slug, $a, $b);
     }
@@ -174,7 +187,7 @@ class SwivelComponent extends yii\base\BaseObject
      *
      * @return array
      */
-    protected function getDefaultOptions()
+    protected function getDefaultOptions(): array
     {
         return [
             'BucketIndex' => $this->bucketIndex,
@@ -189,7 +202,7 @@ class SwivelComponent extends yii\base\BaseObject
      * Check the user state for a bucket index, and if set, return it.
      * @return int
      */
-    protected function checkAndApplyIndex()
+    protected function checkAndApplyIndex(): ?int
     {
         if (!Yii::$app->session->has($this->cookieName)) {
             Yii::$app->session->set($this->cookieName, $this->defaultBucketGenerator());
@@ -205,19 +218,21 @@ class SwivelComponent extends yii\base\BaseObject
      *
      * @return int
      */
-    public function defaultBucketGenerator()
+    public function defaultBucketGenerator(): int
     {
         return call_user_func_array($this->generatorCallable, $this->generatorArgs);
     }
 
     /**
-     * @param \yii\db\Connection $db
+     * @param Connection $db
      * @param string $tableName
-     * @throws \Exception
+     * @throws Exception
+     * @deprecated This method is going away as it has been replaced by the migration.
+     * @codeCoverageIgnore
      */
     protected function initSwivelTable($db, $tableName)
     {
-        Yii::trace('Creating Swivel Feature Table', $this->loggerCategory);
+        Yii::debug('Creating Swivel Feature Table', __METHOD__);
         $db->createCommand()->createTable($tableName, [
                 'id' => 'INT PRIMARY KEY AUTO_INCREMENT',
                 'slug' => 'MEDIUMTEXT',   // enable more than 254 chars for slug since they have . subfeatures
@@ -226,35 +241,55 @@ class SwivelComponent extends yii\base\BaseObject
             ])->execute();
     }
 
-    /**
-     * Default Log option -- can be overridden by passing a different logger through the config, or by extending this
-     * class and overriding the method
-     *
-     * @return SwivelLogger
-     */
-    protected function getDefaultLogger()
+	/**
+	 * Default Log option -- can be overridden by passing a different logger through the config, or by extending this
+	 * class and overriding the method
+	 *
+	 * @return LoggerInterface
+	 * @throws InvalidConfigException
+	 */
+    protected function getDefaultLogger(): LoggerInterface
     {
-        $logger = new $this->loggerClass;
-        $logger->category = $this->loggerCategory;
+	    $logger = Yii::createObject($this->loggerClass);
+	    if (!$logger instanceof LoggerInterface)
+	    {
+	    	throw new InvalidConfigException('Configured logger must implement the LoggerInterface class.');
+	    }
         return $logger;
     }
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
      */
-    public function setLogger(\Psr\Log\LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->_logger = $logger;
     }
 
     /**
-     * @return \Psr\Log\LoggerInterface
+     * @return LoggerInterface
      */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         if (!$this->_logger) {
             $this->_logger = $this->getDefaultLogger();
         }
         return $this->_logger;
     }
+
+	/**
+	 * Automatic creation of swivel component on demand if one is not already configured for the application
+	 *
+	 * @param string $componentAlias
+	 * @return SwivelComponent
+	 * @throws \yii\base\InvalidConfigException
+	 */
+	public static function loadSwivel(string $componentAlias = 'swivel'): SwivelComponent
+	{
+		if (!Yii::$app->has($componentAlias))
+		{
+			Yii::$app->set($componentAlias, Yii::createObject(SwivelComponent::class));
+		}
+		return Yii::$app->get($componentAlias);
+	}
 }

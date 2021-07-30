@@ -1,30 +1,71 @@
 {
-    "name": "dhluther/yii2-swivel",
-    "type": "yii2-extension",
-    "description": "A Yii 2.0 plugin to provide easy access and integration with zumba/swivel",
-    "keywords": ["yii2", "extension", "swivel", "helper", "component", "behavior"],
-    "homepage": "https://github.com/DanaLuther/yii2-swivel",
-    "license": "BSD-3-Clause",
-    "stability":"stable",
-    "authors": [
-        {
-            "name": "Dana Luther",
-            "homepage": "http://dhluther.lutherweb.com"
-        }
-    ],
-    "require": {
-        "yiisoft/yii2": ">=2.0.13",
-        "zumba/swivel": "2.*"
-    },
-    "support": {
-        "source": "https://github.com/DanaLuther/yii2-swivel",
-        "wiki": "https://github.com/DanaLuther/yii2-swivel/wiki",
-        "issues": "https://github.com/DanaLuther/yii2-swivel/issues",
-        "forum":"http://www.yiiframework.com/forum/index.php/topic/70228-extension-yii2-swivel/"
-    },
-    "autoload": {
-        "psr-4": {
-            "dhluther\\swivel\\":"src/"
-        }
+  "name": "dhluther/yii2-swivel",
+  "type": "yii2-extension",
+  "description": "A Yii 2.0 plugin to provide easy access and integration with zumba/swivel",
+  "keywords": [
+    "yii2",
+    "extension",
+    "swivel",
+    "helper",
+    "component",
+    "behavior"
+  ],
+  "homepage": "https://github.com/DanaLuther/yii2-swivel",
+  "license": "BSD-3-Clause",
+  "stability": "stable",
+  "authors": [
+    {
+      "name": "Dana Luther",
+      "homepage": "https://dhluther.lutherweb.com"
     }
+  ],
+  "support": {
+    "source": "https://github.com/DanaLuther/yii2-swivel",
+    "wiki": "https://github.com/DanaLuther/yii2-swivel/wiki",
+    "issues": "https://github.com/DanaLuther/yii2-swivel/issues",
+    "forum": "http://www.yiiframework.com/forum/index.php/topic/70228-extension-yii2-swivel/"
+  },
+  "autoload": {
+    "psr-4": {
+      "dhluther\\swivel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "dhluther\\swivel\\tests\\": "tests/codeception/"
+    }
+  },
+  "require": {
+    "php": ">=7.4",
+    "yiisoft/yii2": "^2.0.13 || ^3.0",
+    "zumba/swivel": "^4.0"
+  },
+  "require-dev": {
+    "yiisoft/yii2-coding-standards": "*",
+    "codeception/codeception": "^4.1.0",
+    "codeception/module-yii2": "*",
+    "codeception/module-asserts": "*",
+    "codeception/module-datafactory": "*",
+    "phpunit/phpunit-selenium": "*",
+    "yiisoft/yii2-faker": "*"
+  },
+  "config": {
+    "process-timeout": 1800,
+    "platform": {
+      "php": "7.4.19",
+      "ext-mysqli": "7.4",
+      "ext-pdo": "7.4",
+      "ext-pdo_mysql": "7.4",
+      "ext-intl": "7.4"
+    },
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }

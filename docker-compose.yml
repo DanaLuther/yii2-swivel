@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+  php-cli:
+    image: dhluther/php:7.4-debug
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - ./:/var/www/html
+    environment:
+      XDEBUG_CONFIG: remote_host=${DOCKER_GATEWAY_HOST:-host.docker.internal}
+      XDEBUG_MODE: coverage
+      ENVII_ENV: "{{.Node.Hostname}}"
+      TZ: America/New_York
+    command: [
+        'bash','-c', "/var/www/html/tests/codeception/bin/yii migrate --interactive=false && sleep infinity"
+    ]
+    networks:
+      - testnet
+
+  composer:
+    image: composer
+    deploy:
+      replicas: 0
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - ./:/app/
+    command: [
+        'bash','-c', "sleep infinity"
+    ]
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+      TZ: America/New_York
+    networks:
+      - testnet
+    configs:
+      - source: db_init
+        target: /docker-entrypoint-initdb.d/swivel_init.sql
+    secrets:
+      - db_root_password
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  testnet:
+
+secrets:
+  db_root_password:
+    file: ./tests/codeception/_data/db_root_password.txt
+
+configs:
+  db_init:
+    file: ./tests/codeception/_data/schema_init.sql

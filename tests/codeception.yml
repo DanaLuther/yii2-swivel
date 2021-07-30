@@ -1,0 +1,24 @@
+actor: Tester
+paths:
+    tests: codeception
+    output: codeception/_output
+    data: codeception/_data
+    support: codeception/_support
+    envs: codeception/_envs
+    helpers: codeception/_helpers
+    log: codeception/_log
+coverage:
+  enabled: true
+  include:
+    - ../src/*
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+bootstrap: _bootstrap.php
+settings:
+    suite_class: \PHPUnit_Framework_TestSuite
+    colors: true
+    memory_limit: 1024M
+    log: true
+#    debug: true
+# Debug toggles on the verbose information about the database connections, etc.
