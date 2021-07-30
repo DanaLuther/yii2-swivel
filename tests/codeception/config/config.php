@@ -19,7 +19,7 @@ return [
 	'aliases' => [
 		'@bower'           => '@vendor/bower-asset',
 		'@npm'             => '@vendor/npm-asset',
-		'@dhluther/swivel' => dirname(__DIR__, 3).'/src', // '@vendor/dhluther/swivel/src'
+		'@dhluther/swivel' => dirname(__DIR__, 3).'/src', // '@vendor/dhluther/yii2-swivel/src'
 	],
 	'components'    => [
 		'db'    => [

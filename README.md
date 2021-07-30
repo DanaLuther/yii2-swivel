@@ -41,19 +41,12 @@ require(__DIR__ . '/../vendor/autoload.php');
 ```
 with the alias of:
 ```php
-'@dhluther\swivel'=>'@vendor/dhluther/swivel/src'
+'@dhluther\swivel'=>'@vendor/dhluther/yii2-swivel/src'
 ```
 
 If you've already migrated this package in the past and want to mark it to the current migratoin via namespace, the command is
 ```shell
 ./yii migrate/mark dhluther\\swivel\\migrations\\m190812_083802
-```
-
-###--OR--
-### Migrate swivel once
-Initialize the swivel table by running the following migration, after configuring the component in your application:
-```php
-./yii migrate --migrationPath=@dhluther/swivel/migrations
 ```
 
 ### To add the composer vendor libraries for local development:
