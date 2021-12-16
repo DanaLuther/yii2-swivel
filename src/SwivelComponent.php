@@ -57,6 +57,7 @@ class SwivelComponent extends yii\base\BaseObject
      * @var string The table name to be used to store the swivel features and associated buckets
      */
     public string $swivelTableAlias = 'swivel';
+
     /**
      * @var string The Application component ID for the swivel database connection
      */
@@ -288,7 +289,7 @@ class SwivelComponent extends yii\base\BaseObject
 	{
 		if (!Yii::$app->has($componentAlias))
 		{
-			Yii::$app->set($componentAlias, Yii::createObject(SwivelComponent::class));
+			Yii::$app->set($componentAlias, Yii::createObject(static::class));
 		}
 		return Yii::$app->get($componentAlias);
 	}
