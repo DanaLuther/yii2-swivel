@@ -2,5 +2,8 @@ vendor/*
 composer.lock
 auth.json
 tests/codeception/_output
+!tests/codeception/_output/report-7-4.json
+!tests/codeception/_output/report-8-0.json
+!tests/codeception/_output/report-8-1.json
 tests/codeception/runtime
 tests/codeception/_support/_generated

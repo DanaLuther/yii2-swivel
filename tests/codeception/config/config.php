@@ -31,9 +31,10 @@ return [
 			'enableSchemaCache' => false,
 			'emulatePrepare'    => true,
 		],
-		'cache' => [
-			'class' => \yii\caching\DummyCache::class,
-		],
+// Cache is not php 8.1 compliant, but it's also not used by this package, so can be safely excluded
+//		'cache' => [
+//			'class' => \yii\caching\DummyCache::class,
+//		],
 		'log'   => [
 			'traceLevel' => YII_DEBUG ? 3 : 0,
 			'targets'    => [

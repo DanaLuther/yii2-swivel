@@ -12,7 +12,6 @@
   ],
   "homepage": "https://github.com/DanaLuther/yii2-swivel",
   "license": "BSD-3-Clause",
-  "stability": "stable",
   "authors": [
     {
       "name": "Dana Luther",
@@ -36,8 +35,8 @@
     }
   },
   "require": {
-    "php": ">=7.4",
-    "yiisoft/yii2": "^2.0.13",
+    "php": "~7.4.0|~8.0.0|~8.1.0",
+    "yiisoft/yii2": "~2.0.13",
     "zumba/swivel": "^4.0"
   },
   "require-dev": {
@@ -52,11 +51,11 @@
   "config": {
     "process-timeout": 1800,
     "platform": {
-      "php": "7.4.19",
-      "ext-mysqli": "7.4",
-      "ext-pdo": "7.4",
-      "ext-pdo_mysql": "7.4",
-      "ext-intl": "7.4"
+      "php": "8.1.0",
+      "ext-mysqli": "8.1",
+      "ext-pdo": "8.1",
+      "ext-pdo_mysql": "8.1",
+      "ext-intl": "8.1"
     },
     "fxp-asset": {
       "enabled": false

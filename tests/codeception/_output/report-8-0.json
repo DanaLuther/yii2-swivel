@@ -1,0 +1,574 @@
+[
+    {
+        "event": "suiteStart",
+        "suite": "unit",
+        "tests": 27
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\InitMigrationTest",
+            "testMigration"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\InitMigrationTest",
+            "testMigration"
+        ],
+        "status": "pass",
+        "time": 0.099387418,
+        "trace": [],
+        "message": "",
+        "output": "    > drop table swivel ... done (time: 0.030s)\n    > create table swivel ... done (time: 0.007s)\n"
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\InitMigrationTest",
+            "testMigrationAlternateTable"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\InitMigrationTest",
+            "testMigrationAlternateTable"
+        ],
+        "status": "pass",
+        "time": 0.026320959,
+        "trace": [],
+        "message": "",
+        "output": "    > create table alt_swivel ... done (time: 0.009s)\n    > drop table alt_swivel ... done (time: 0.004s)\n"
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testCreateSwivelComponent"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testCreateSwivelComponent"
+        ],
+        "status": "pass",
+        "time": 0.00318802,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testCreateSwivelComponentWithBadUserProperty"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testCreateSwivelComponentWithBadUserProperty"
+        ],
+        "status": "pass",
+        "time": 0.005665232,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testSetLogger"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testSetLogger"
+        ],
+        "status": "pass",
+        "time": 0.000364543,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testCreateSwivelComponentWithBadLoggerClass"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testCreateSwivelComponentWithBadLoggerClass"
+        ],
+        "status": "pass",
+        "time": 0.007648981,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testReturnValue"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testReturnValue"
+        ],
+        "status": "pass",
+        "time": 0.155281779,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testForFeature"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testForFeature"
+        ],
+        "status": "pass",
+        "time": 0.011677955,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testInvoke"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelComponentTest",
+            "testInvoke"
+        ],
+        "status": "pass",
+        "time": 0.017747647,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelFeatureTest",
+            "testCreateSwivelFeature"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelFeatureTest",
+            "testCreateSwivelFeature"
+        ],
+        "status": "pass",
+        "time": 0.022759399,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelFeatureTest",
+            "testBucketValidationWithSingleDigit"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelFeatureTest",
+            "testBucketValidationWithSingleDigit"
+        ],
+        "status": "pass",
+        "time": 0.021136907,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelFeatureTest",
+            "testMapData"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelFeatureTest",
+            "testMapData"
+        ],
+        "status": "pass",
+        "time": 0.013224568,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testCreateSwivelLoader"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testCreateSwivelLoader"
+        ],
+        "status": "pass",
+        "time": 0.000259163,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testInvalidModelAlias"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testInvalidModelAlias"
+        ],
+        "status": "pass",
+        "time": 0.000359104,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testInvalidBucket"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testInvalidBucket"
+        ],
+        "status": "pass",
+        "time": 0.00288655,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testInvalidBucketAlpha"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testInvalidBucketAlpha"
+        ],
+        "status": "pass",
+        "time": 0.009038494,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testAddBucketToManager"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testAddBucketToManager"
+        ],
+        "status": "pass",
+        "time": 0.002377093,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testConfigMetrics"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoaderTest",
+            "testConfigMetrics"
+        ],
+        "status": "pass",
+        "time": 0.002191927,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testCreateSwivelLogger"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testCreateSwivelLogger"
+        ],
+        "status": "pass",
+        "time": 0.000316012,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testCategory"
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testCategory"
+        ],
+        "status": "pass",
+        "time": 0.000236868,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"asInt1\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"asInt1\""
+        ],
+        "status": "pass",
+        "time": 0.000222932,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"asInt4\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"asInt4\""
+        ],
+        "status": "pass",
+        "time": 0.000237212,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"debug\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"debug\""
+        ],
+        "status": "pass",
+        "time": 0.000188913,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"error\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"error\""
+        ],
+        "status": "pass",
+        "time": 0.000221224,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"warning\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"warning\""
+        ],
+        "status": "pass",
+        "time": 0.000339977,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"info\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"info\""
+        ],
+        "status": "pass",
+        "time": 0.000230992,
+        "trace": [],
+        "message": "",
+        "output": ""
+    },
+    {
+        "event": "testStart",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"notice\""
+        ]
+    },
+    {
+        "event": "test",
+        "suite": "unit",
+        "test": [
+            "dhluther\\swivel\\tests\\unit\\SwivelLoggerTest",
+            "testLevels with data set \"notice\""
+        ],
+        "status": "pass",
+        "time": 0.000220802,
+        "trace": [],
+        "message": "",
+        "output": ""
+    }
+]

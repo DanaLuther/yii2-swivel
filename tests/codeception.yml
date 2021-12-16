@@ -15,6 +15,8 @@ extensions:
     enabled:
         - Codeception\Extension\RunFailed
 bootstrap: _bootstrap.php
+config:
+    test_entry_url: '/'
 settings:
     suite_class: \PHPUnit_Framework_TestSuite
     colors: true
