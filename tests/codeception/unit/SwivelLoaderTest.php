@@ -52,9 +52,14 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 	 */
     public function testInvalidBucketAlpha()
     {
-    	$this->expectError();
-		$loader = \Yii::createObject(SwivelLoader::class);
-		$loader->setBucketIndex('Orange');
+		$errorFound = false;
+		try {
+			$loader = \Yii::createObject(SwivelLoader::class);
+			$loader->setBucketIndex('Orange');
+		} catch (\Error $e){
+			$errorFound = true;
+		}
+		$this->assertTrue($errorFound, 'Never threw the expected error.');
     }
 
 	/**
@@ -72,10 +77,15 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 	public function testConfigMetrics()
 	{
 		// Metrics needs to be of type MetricsInterface, so this will throw a TypeError
-		$this->expectError();
-		$loader = \Yii::createObject(SwivelLoader::class ,[
-			'options'=>['Metrics'=>'\stdClass']
-		]);
-		$config = $loader->getConfig();
+		$errorFound = false;
+		try {
+			$loader = \Yii::createObject(SwivelLoader::class, [
+				'options' => ['Metrics' => '\stdClass']
+			]);
+			$config = $loader->getConfig();
+		} catch ( \Error $e){
+			$errorFound = true;
+		}
+		$this->assertTrue($errorFound, 'Failed to throw TypeError for MetricsInterface.');
 	}
 }
