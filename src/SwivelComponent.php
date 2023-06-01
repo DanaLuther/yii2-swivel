@@ -11,11 +11,9 @@ declare(strict_types=1);
 
 namespace dhluther\swivel;
 
-use Exception;
 use Psr\Log\LoggerInterface;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\db\Connection;
 use yii\helpers\ArrayHelper;
 use Zumba\Swivel\Builder;
 
@@ -61,15 +59,6 @@ class SwivelComponent extends yii\base\BaseObject
      * @var string The class name for the model interfacing with the swivel native logger
      */
     public string $loggerClass = 'dhluther\swivel\SwivelLogger';
-
-    /**
-     * @var string The category that messages should be logged to - will be passed to the Logger
-     * @deprecated set Logger category via DI:
-     * e.g.,
-     *      Yii::$container->set(SwivelLogger::class, ['category'=>'application.swivel']);
-     *
-     */
-    public string $loggerCategory = 'application.swivel';
 
     /**
      * @var string The default Cookie to store the swivel bucket information for the user

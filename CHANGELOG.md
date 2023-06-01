@@ -16,6 +16,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Replace test annotations with attributes
 * Added mysql exclusion group for integration tests
 * Removed previously deprecated table auto-creation methods and properties
+* Removed previously deprecated loggerCategory from SwivelComponent
 
 2.1.0 - April 2023
 -----------------
