@@ -13,6 +13,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Added the test suite to the github actions (minus the mysql integration tests)
 * Added pre-commit hook for linting
 * Added .editorconfig for Yii2 standard and linted to match
+* Replace test annotations with attributes
+* Added mysql exclusion group for integration tests
 
 2.1.0 - April 2023
 -----------------

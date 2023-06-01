@@ -7,6 +7,7 @@
 
 namespace dhluther\swivel\tests\unit;
 
+use Codeception\Attribute\Group;
 use dhluther\swivel\migrations\m190812_083802_swivel_init;
 use dhluther\swivel\SwivelComponent;
 
@@ -17,6 +18,7 @@ class InitMigrationTest extends \Codeception\Test\Unit
      */
     protected $tester;
 
+    #[Group('mysql')]
     public function testMigration()
     {
 		if (!extension_loaded('mysqli')){
@@ -29,6 +31,7 @@ class InitMigrationTest extends \Codeception\Test\Unit
 	    $this->assertEquals(1,\Yii::$app->db->createCommand("SHOW TABLES LIKE 'swivel'")->execute());
     }
 
+    #[Group('mysql')]
     public function testMigrationAlternateTable()
     {
 	    if (!extension_loaded('mysqli')){

@@ -7,6 +7,8 @@
 
 namespace dhluther\swivel\tests\unit;
 
+use Codeception\Attribute\Depends;
+use Codeception\Attribute\Group;
 use dhluther\swivel\SwivelFeature;
 use dhluther\swivel\tests\Fixtures\SwivelFeatureFixture;
 
@@ -17,6 +19,7 @@ class SwivelFeatureTest extends \Codeception\Test\Unit
 	 */
 	protected $tester;
 
+    #[Group('mysql')]
 	public function testCreateSwivelFeature()
 	{
 		if (!extension_loaded('mysqli')){
@@ -35,6 +38,7 @@ class SwivelFeatureTest extends \Codeception\Test\Unit
 		$this->assertIsArray($feature->getBucketData());
 	}
 
+    #[Group('mysql')]
 	public function testBucketValidationWithSingleDigit()
 	{
 		if (!extension_loaded('mysqli')){
@@ -49,6 +53,7 @@ class SwivelFeatureTest extends \Codeception\Test\Unit
 		$this->assertTrue($feature->save());
 	}
 
+    #[Group('mysql')]
 	public function testMapData()
 	{
 		if (!extension_loaded('mysqli')){

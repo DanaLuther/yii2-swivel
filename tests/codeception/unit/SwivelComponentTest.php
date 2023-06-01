@@ -7,6 +7,8 @@
 
 namespace dhluther\swivel\tests\unit;
 
+use Codeception\Attribute\Depends;
+use Codeception\Attribute\Group;
 use dhluther\swivel\SwivelComponent;
 use dhluther\swivel\SwivelFeature;
 use dhluther\swivel\SwivelLogger;
@@ -37,9 +39,7 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 		$this->assertInstanceOf(SwivelComponent::class, $component);
 	}
 
-	/**
-	 * @depends testCreateSwivelComponent
-	 */
+    #[Depends('testCreateSwivelComponent')]
 	public function testCreateSwivelComponentWithBadUserProperty()
 	{
 		\Yii::$container->set(SwivelComponent::class,[
@@ -50,18 +50,14 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 		$this->assertEquals('bananaphone', $component->userBucketProperty);
 	}
 
-	/**
-	 * @depends testCreateSwivelComponent
-	 */
+    #[Depends('testCreateSwivelComponent')]
 	public function testSetLogger()
 	{
 		$component = \Yii::createObject(SwivelComponent::class);
 		$component->setLogger( new SwivelLogger() );
 	}
 
-	/**
-	 * @depends testCreateSwivelComponent
-	 */
+    #[Depends('testCreateSwivelComponent')]
 	public function testCreateSwivelComponentWithBadLoggerClass()
 	{
 		\Yii::$container->set(SwivelComponent::class,[
@@ -71,9 +67,8 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 		$component = \Yii::createObject(SwivelComponent::class);
 	}
 
-	/**
-	 * @depends testCreateSwivelComponent
-	 */
+    #[Depends('testCreateSwivelComponent')]
+    #[Group('mysql')]
 	public function testReturnValue()
 	{
 		if (!extension_loaded('mysqli')){
@@ -100,9 +95,8 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 		$this->assertFalse($swivel->returnValue('Sauce.UnknownSpiceFactor', true, false));
 	}
 
-	/**
-	 * @depends testCreateSwivelComponent
-	 */
+    #[Depends('testCreateSwivelComponent')]
+    #[Group('mysql')]
 	public function testForFeature()
 	{
 		if (!extension_loaded('mysqli')){
@@ -140,10 +134,8 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 		$this->assertEquals('red', $value);
 	}
 
-
-	/**
-	 * @depends testCreateSwivelComponent
-	 */
+    #[Depends('testCreateSwivelComponent')]
+    #[Group('mysql')]
 	public function testInvoke()
 	{
 		if (!extension_loaded('mysqli')){

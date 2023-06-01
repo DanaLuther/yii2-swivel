@@ -7,6 +7,8 @@
 
 namespace dhluther\swivel\tests\unit;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Attribute\Depends;
 use dhluther\swivel\SwivelLogger;
 use Psr\Log\LogLevel;
 use yii\log\Logger;
@@ -24,9 +26,7 @@ class SwivelLoggerTest extends \Codeception\Test\Unit
 		$this->assertInstanceOf(SwivelLogger::class, $logger);
 	}
 
-	/**
-	 * @depends testCreateSwivelLogger
-	 */
+    #[Depends('testCreateSwivelLogger')]
 	public function testCategory()
 	{
 		$logger = \Yii::createObject(SwivelLogger::class);
@@ -47,9 +47,7 @@ class SwivelLoggerTest extends \Codeception\Test\Unit
 		];
 	}
 
-	/**
-	 * @dataProvider getLogLevelList
-	 */
+    #[DataProvider('getLogLevelList')]
 	public function testLevels($level,$expected)
 	{
 		$logger = \Yii::createObject(SwivelLogger::class);

@@ -64,7 +64,7 @@
     }
   ],
   "scripts": {
-    "test": "codecept run unit -c tests/"
+    "test": "codecept run unit -c tests/ -x mysql"
   },
   "extra": {
     "branch-alias": {

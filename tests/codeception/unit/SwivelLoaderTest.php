@@ -7,6 +7,8 @@
 
 namespace dhluther\swivel\tests\unit;
 
+use Codeception\Attribute\Depends;
+use Codeception\Attribute\Group;
 use dhluther\swivel\SwivelLoader;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
@@ -24,9 +26,7 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 		$this->assertInstanceOf(SwivelLoader::class, $loader);
     }
 
-	/**
-	 * @depends testCreateSwivelLoader
-	 */
+    #[Depends('testCreateSwivelLoader')]
     public function testInvalidModelAlias()
     {
     	$this->expectException(InvalidConfigException::class);
@@ -37,9 +37,7 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 	    $this->assertNull($loader->getManager());
     }
 
-	/**
-	 * @depends testCreateSwivelLoader
-	 */
+    #[Depends('testCreateSwivelLoader')]
     public function testInvalidBucket()
     {
     	$this->expectException(InvalidArgumentException::class);
@@ -47,9 +45,7 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 		$loader->setBucketIndex(1000);
     }
 
-	/**
-	 * @depends testCreateSwivelLoader
-	 */
+    #[Depends('testCreateSwivelLoader')]
     public function testInvalidBucketAlpha()
     {
 		$errorFound = false;
@@ -62,9 +58,8 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 		$this->assertTrue($errorFound, 'Never threw the expected error.');
     }
 
-	/**
-	 * @depends testCreateSwivelLoader
-	 */
+    #[Depends('testCreateSwivelLoader')]
+    #[Group('mysql')]
 	public function testAddBucketToManager()
 	{
 		if (!extension_loaded('mysqli')){
@@ -74,9 +69,9 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 		$manager = $loader->getManager();
 		$loader->setBucketIndex(2);
 	}
-	/**
-	 * @depends testCreateSwivelLoader
-	 */
+
+    #[Depends('testCreateSwivelLoader')]
+    #[Group('mysql')]
 	public function testConfigMetrics()
 	{
 		if (!extension_loaded('mysqli')){
