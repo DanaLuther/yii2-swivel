@@ -38,17 +38,6 @@ class SwivelComponent extends yii\base\BaseObject
     public array $options = [];
 
     /**
-     * @var bool Whether to create the swivel table automatically when it does not exist
-     *
-     * This value has been kept for backward compatibility and is not recommended for production environments. Use the
-     * provided migration to initialize the table:
-     *
-     * ./yii migrate --migrationPath=@dhluther/swivel/migrations
-     * @deprecated
-     */
-    public bool $autoCreateSwivelTable = false;
-
-    /**
      * @var string The component alias being used -- allows for multiple swivel installations in a single application
      */
     public string $componentAlias = 'swivel';
@@ -117,12 +106,6 @@ class SwivelComponent extends yii\base\BaseObject
     {
         Yii::debug('Initializing Swivel Component.', __METHOD__);
         parent::init();
-
-        // @codeCoverageIgnoreStart
-        if ($this->autoCreateSwivelTable) {
-            Yii::error('Auto creation of swivel tables is no longer supported', __METHOD__);
-        }
-        // @codeCoverageIgnoreEnd
 
         // If we have a registered user, assume they should have some property or magic method that holds their bucket ID
         if ($this->userBucketProperty) {
@@ -220,24 +203,6 @@ class SwivelComponent extends yii\base\BaseObject
     public function defaultBucketGenerator(): int
     {
         return call_user_func_array($this->generatorCallable, $this->generatorArgs);
-    }
-
-    /**
-     * @param Connection $db
-     * @param string $tableName
-     * @throws Exception
-     * @deprecated This method is going away as it has been replaced by the migration.
-     * @codeCoverageIgnore
-     */
-    protected function initSwivelTable($db, $tableName)
-    {
-        Yii::debug('Creating Swivel Feature Table', __METHOD__);
-        $db->createCommand()->createTable($tableName, [
-                'id' => 'INT PRIMARY KEY AUTO_INCREMENT',
-                'slug' => 'MEDIUMTEXT',   // enable more than 254 chars for slug since they have . subfeatures
-                'buckets' => 'TINYTEXT',  // 10 bucket system, so never more than 18 chars currently
-                'INDEX ix_slug( slug(8) )',
-            ])->execute();
     }
 
     /**

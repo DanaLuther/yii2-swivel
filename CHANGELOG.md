@@ -15,6 +15,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Added .editorconfig for Yii2 standard and linted to match
 * Replace test annotations with attributes
 * Added mysql exclusion group for integration tests
+* Removed previously deprecated table auto-creation methods and properties
 
 2.1.0 - April 2023
 -----------------
