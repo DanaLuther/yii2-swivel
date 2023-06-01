@@ -54,10 +54,6 @@ If you've already migrated this package in the past and want to mark it to the c
 docker run --rm -v $PWD:/app composer update
 ```
 
-### Note about PHP 8.2 Compatibility and Testing
-As of this date, Yii 2.0 is not yet officially supporting PHP 8.2
-To install the codeception/yii2-module you must force the composer update with ` --ignore-platform-req=php`
-
 #### The ***Swivel*** Libraries 
 
 https://github.com/zumba/swivel 

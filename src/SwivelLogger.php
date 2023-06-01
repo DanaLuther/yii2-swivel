@@ -26,9 +26,9 @@ class SwivelLogger extends AbstractLogger
 {
     public string $category = 'application.swivel';
 
-    public function __construct(string $category='application.swivel')
+    public function __construct(string $category = 'application.swivel')
     {
-    	$this->category = $category;
+        $this->category = $category;
     }
 
     /**
@@ -38,7 +38,7 @@ class SwivelLogger extends AbstractLogger
      * @param string $message
      * @param array $context
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         Yii::getLogger()->log($message . PHP_EOL . VarDumper::dumpAsString($context), $this->getLogLevelAsInt($level), $this->getLogCategory());
     }
@@ -51,7 +51,7 @@ class SwivelLogger extends AbstractLogger
     /**
      * @param string $category
      */
-    public function setLogCategory(string $category)
+    public function setLogCategory(string $category): void
     {
         $this->category = $category;
     }
@@ -65,25 +65,25 @@ class SwivelLogger extends AbstractLogger
     public function getLogLevelAsInt(string $level): int
     {
         switch ($level) {
-	        case LogLevel::DEBUG:
-	        case '8':
-		        return Logger::LEVEL_TRACE;
+            case LogLevel::DEBUG:
+            case '8':
+                return Logger::LEVEL_TRACE;
 
-	        case LogLevel::EMERGENCY:
-	        case LogLevel::ERROR:
-	        case LogLevel::CRITICAL:
-	        case '1':
-		        return Logger::LEVEL_ERROR;
+            case LogLevel::EMERGENCY:
+            case LogLevel::ERROR:
+            case LogLevel::CRITICAL:
+            case '1':
+                return Logger::LEVEL_ERROR;
 
-	        case LogLevel::ALERT:
+            case LogLevel::ALERT:
             case LogLevel::WARNING:
-	        case '2':
+            case '2':
                 return Logger::LEVEL_WARNING;
 
 
             case LogLevel::INFO:
             case LogLevel::NOTICE:
-	        case '4':
+            case '4':
             default:
                 return Logger::LEVEL_INFO;
         }

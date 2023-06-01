@@ -19,6 +19,9 @@ class SwivelFeatureTest extends \Codeception\Test\Unit
 
 	public function testCreateSwivelFeature()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$this->tester->haveFixtures([
 			SwivelFeatureFixture::class,
 		]);
@@ -34,6 +37,9 @@ class SwivelFeatureTest extends \Codeception\Test\Unit
 
 	public function testBucketValidationWithSingleDigit()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$this->tester->haveFixtures([
 			SwivelFeatureFixture::class,
 		]);
@@ -45,6 +51,9 @@ class SwivelFeatureTest extends \Codeception\Test\Unit
 
 	public function testMapData()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$this->tester->haveFixtures([
 			SwivelFeatureFixture::class,
 		]);

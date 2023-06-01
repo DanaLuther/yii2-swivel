@@ -17,10 +17,10 @@ namespace dhluther\swivel;
  */
 interface SwivelDataSource
 {
-	/**
-	 * Return an array of map data in the format that Swivel expects
-	 *
-	 * @return array
-	 */
-	public function getMapData(): array;
+    /**
+     * Return an array of map data in the format that Swivel expects
+     *
+     * @return array
+     */
+    public function getMapData(): array;
 }

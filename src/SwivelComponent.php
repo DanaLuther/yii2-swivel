@@ -120,19 +120,17 @@ class SwivelComponent extends yii\base\BaseObject
 
         // @codeCoverageIgnoreStart
         if ($this->autoCreateSwivelTable) {
-           Yii::error('Auto creation of swivel tables is no longer supported', __METHOD__);
+            Yii::error('Auto creation of swivel tables is no longer supported', __METHOD__);
         }
         // @codeCoverageIgnoreEnd
 
         // If we have a registered user, assume they should have some property or magic method that holds their bucket ID
         if ($this->userBucketProperty) {
-        	try
-	        {
-		        $this->bucketIndex = Yii::$app->user->{$this->userBucketProperty};
-	        } catch (\Exception $e)
-	        {
-	        	Yii::error('Failed to locate user property for bucket index: '.$this->userBucketProperty, __METHOD__);
-	        }
+            try {
+                $this->bucketIndex = Yii::$app->user->{$this->userBucketProperty};
+            } catch (\Exception $e) {
+                Yii::error('Failed to locate user property for bucket index: ' . $this->userBucketProperty, __METHOD__);
+            }
         }
         // If no bucket has been selected, establish a cookie for the bucket identifier and use that for the duration
         // of the user's time on site - otherwise they will get a different bucket with each page load
@@ -242,20 +240,19 @@ class SwivelComponent extends yii\base\BaseObject
             ])->execute();
     }
 
-	/**
-	 * Default Log option -- can be overridden by passing a different logger through the config, or by extending this
-	 * class and overriding the method
-	 *
-	 * @return LoggerInterface
-	 * @throws InvalidConfigException
-	 */
+    /**
+     * Default Log option -- can be overridden by passing a different logger through the config, or by extending this
+     * class and overriding the method
+     *
+     * @return LoggerInterface
+     * @throws InvalidConfigException
+     */
     protected function getDefaultLogger(): LoggerInterface
     {
-	    $logger = Yii::createObject($this->loggerClass);
-	    if (!$logger instanceof LoggerInterface)
-	    {
-	    	throw new InvalidConfigException('Configured logger must implement the LoggerInterface class.');
-	    }
+        $logger = Yii::createObject($this->loggerClass);
+        if (!$logger instanceof LoggerInterface) {
+            throw new InvalidConfigException('Configured logger must implement the LoggerInterface class.');
+        }
         return $logger;
     }
 
@@ -278,19 +275,18 @@ class SwivelComponent extends yii\base\BaseObject
         return $this->_logger;
     }
 
-	/**
-	 * Automatic creation of swivel component on demand if one is not already configured for the application
-	 *
-	 * @param string $componentAlias
-	 * @return SwivelComponent
-	 * @throws \yii\base\InvalidConfigException
-	 */
-	public static function loadSwivel(string $componentAlias = 'swivel'): SwivelComponent
-	{
-		if (!Yii::$app->has($componentAlias))
-		{
-			Yii::$app->set($componentAlias, Yii::createObject(static::class));
-		}
-		return Yii::$app->get($componentAlias);
-	}
+    /**
+     * Automatic creation of swivel component on demand if one is not already configured for the application
+     *
+     * @param string $componentAlias
+     * @return SwivelComponent
+     * @throws \yii\base\InvalidConfigException
+     */
+    public static function loadSwivel(string $componentAlias = 'swivel'): SwivelComponent
+    {
+        if (!Yii::$app->has($componentAlias)) {
+            Yii::$app->set($componentAlias, Yii::createObject(static::class));
+        }
+        return Yii::$app->get($componentAlias);
+    }
 }

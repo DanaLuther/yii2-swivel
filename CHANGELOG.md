@@ -4,6 +4,16 @@ CHANGELOG
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+3.0.0 - TBD
+-----------------
+* Drop support for PHP 7.4
+* Update minimum supported Yii version to the minimum that supports PHP 8.0
+* Update SwivelLogger for psr/log:^3.0 compatibility
+* Added PHP matrix for 8.0, 8.1 and 8.2
+* Added the test suite to the github actions (minus the mysql integration tests)
+* Added pre-commit hook for linting
+* Added .editorconfig for Yii2 standard and linted to match
+
 2.1.0 - April 2023
 -----------------
 * Enable support for PHP 8.2 (with caution about unsupported codeception module)

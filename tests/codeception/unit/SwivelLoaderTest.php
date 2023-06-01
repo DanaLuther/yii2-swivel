@@ -67,6 +67,9 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 	 */
 	public function testAddBucketToManager()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$loader = \Yii::createObject(SwivelLoader::class);
 		$manager = $loader->getManager();
 		$loader->setBucketIndex(2);
@@ -76,6 +79,9 @@ class SwivelLoaderTest extends \Codeception\Test\Unit
 	 */
 	public function testConfigMetrics()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		// Metrics needs to be of type MetricsInterface, so this will throw a TypeError
 		$errorFound = false;
 		try {

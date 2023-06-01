@@ -35,7 +35,7 @@ class SwivelFeature extends ActiveRecord implements SwivelDataSource
      */
     public static function tableName(): string
     {
-	    $component = SwivelComponent::loadSwivel(self::$componentAlias);
+        $component = SwivelComponent::loadSwivel(self::$componentAlias);
         return $component->swivelTableAlias ?? 'swivel';
     }
 
@@ -45,7 +45,7 @@ class SwivelFeature extends ActiveRecord implements SwivelDataSource
      */
     public static function getDb(): Connection
     {
-	    $component = SwivelComponent::loadSwivel(self::$componentAlias);
+        $component = SwivelComponent::loadSwivel(self::$componentAlias);
         return Yii::$app->get($component->dbComponent) ?? Yii::$app->getDb();
     }
 
@@ -71,11 +71,10 @@ class SwivelFeature extends ActiveRecord implements SwivelDataSource
 
     public function beforeValidate()
     {
-    	if (is_numeric($this->buckets))
-	    {
-	    	$this->buckets = (string)$this->buckets;
-	    }
-	    return parent::beforeValidate();
+        if (is_numeric($this->buckets)) {
+            $this->buckets = (string)$this->buckets;
+        }
+        return parent::beforeValidate();
     }
 
     /**

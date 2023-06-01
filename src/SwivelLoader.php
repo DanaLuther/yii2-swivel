@@ -49,19 +49,19 @@ class SwivelLoader
         $this->options = $options;
     }
 
-	/**
-	 * Get the swivel config instance
-	 *
-	 * @return Config
-	 * @throws InvalidConfigException
-	 */
+    /**
+     * Get the swivel config instance
+     *
+     * @return Config
+     * @throws InvalidConfigException
+     */
     public function getConfig(): Config
     {
         if (empty($this->config)) {
             $options = $this->options;
             $this->config = new Config(
                 $this->getModel()->getMapData(),
-                $options['BucketIndex'] ?? rand(1,10),
+                $options['BucketIndex'] ?? rand(1, 10),
                 $options['Logger'] ?? \Yii::createObject(SwivelLogger::class)
             );
             if (!empty($options['Metrics'])) {
@@ -72,41 +72,40 @@ class SwivelLoader
         return $this->config;
     }
 
-	/**
-	 * Get the swivel manager instance
-	 *
-	 * @return Manager
-	 * @throws InvalidConfigException
-	 */
+    /**
+     * Get the swivel manager instance
+     *
+     * @return Manager
+     * @throws InvalidConfigException
+     */
     public function getManager(): Manager
     {
         return $this->manager ?: $this->load();
     }
 
-	/**
-	 * Get the configured swivel model.
-	 *
-	 * Falls back to the SwivelFeature model provided by the plugin if the app does not define one.
-	 *
-	 * @return SwivelDataSource
-	 * @throws InvalidConfigException
-	 */
+    /**
+     * Get the configured swivel model.
+     *
+     * Falls back to the SwivelFeature model provided by the plugin if the app does not define one.
+     *
+     * @return SwivelDataSource
+     * @throws InvalidConfigException
+     */
     protected function getModel(): SwivelDataSource
     {
-    	$model = \Yii::createObject($this->options['ModelAlias'] ?? SwivelFeature::class);
-    	if(!$model instanceof SwivelDataSource)
-	    {
-	    	throw new InvalidConfigException('Configured model must implement SwivelDataSource');
-	    }
-    	return $model;
+        $model = \Yii::createObject($this->options['ModelAlias'] ?? SwivelFeature::class);
+        if (!$model instanceof SwivelDataSource) {
+            throw new InvalidConfigException('Configured model must implement SwivelDataSource');
+        }
+        return $model;
     }
 
-	/**
-	 * Create a Swivel Manager object and return it.
-	 *
-	 * @return Manager
-	 * @throws InvalidConfigException
-	 */
+    /**
+     * Create a Swivel Manager object and return it.
+     *
+     * @return Manager
+     * @throws InvalidConfigException
+     */
     protected function load(): Manager
     {
         $this->manager = new Manager($this->getConfig());

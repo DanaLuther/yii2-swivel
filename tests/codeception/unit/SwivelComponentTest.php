@@ -76,6 +76,9 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 	 */
 	public function testReturnValue()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$this->tester->haveFixtures([
 			SwivelFeatureFixture::class,
 		]);
@@ -102,6 +105,9 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 	 */
 	public function testForFeature()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$this->tester->haveFixtures([
 			SwivelFeatureFixture::class,
 		]);
@@ -140,6 +146,9 @@ class SwivelComponentTest extends \Codeception\Test\Unit
 	 */
 	public function testInvoke()
 	{
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$this->tester->haveFixtures([
 			SwivelFeatureFixture::class,
 		]);

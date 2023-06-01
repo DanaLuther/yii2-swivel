@@ -19,6 +19,9 @@ class InitMigrationTest extends \Codeception\Test\Unit
 
     public function testMigration()
     {
+		if (!extension_loaded('mysqli')){
+			$this->markTestSkipped('No MySQL Support.');
+		}
 		$migration = new m190812_083802_swivel_init();
 		$migration->down();
 	    $this->assertEquals(0,\Yii::$app->db->createCommand("SHOW TABLES LIKE 'swivel'")->execute());
@@ -28,6 +31,9 @@ class InitMigrationTest extends \Codeception\Test\Unit
 
     public function testMigrationAlternateTable()
     {
+	    if (!extension_loaded('mysqli')){
+		    $this->markTestSkipped('No MySQL Support.');
+	    }
     	\Yii::$app->set('swivel', \Yii::createObject(SwivelComponent::class));
     	\Yii::$app->swivel->swivelTableAlias = 'alt_swivel';
 		$migration = new m190812_083802_swivel_init();
