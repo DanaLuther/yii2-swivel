@@ -17,6 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Added mysql exclusion group for integration tests
 * Removed previously deprecated table auto-creation methods and properties
 * Removed previously deprecated loggerCategory from SwivelComponent
+* Allow psr/log up to ^3.0
 
 2.1.1 - June 2023
 -----------------
