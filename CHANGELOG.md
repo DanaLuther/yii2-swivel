@@ -4,6 +4,11 @@ CHANGELOG
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+2.1.1 - June 2023
+-----------------
+* Fix - require explicit psr/log:^1.0 constraint
+* Updated codeception to 5.0 for PHP 8.2 compatibility
+
 2.1.0 - April 2023
 -----------------
 * Enable support for PHP 8.2 (with caution about unsupported codeception module)

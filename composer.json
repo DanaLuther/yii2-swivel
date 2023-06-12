@@ -37,11 +37,12 @@
   "require": {
     "php": "~7.4.0|~8.0.0|~8.1.0|~8.2.0",
     "yiisoft/yii2": "~2.0.13",
-    "zumba/swivel": "^4.0"
+    "zumba/swivel": "^4.0",
+    "psr/log": "^1.0.0"
   },
   "require-dev": {
     "yiisoft/yii2-coding-standards": "*",
-    "codeception/codeception": "^4.1.0",
+    "codeception/codeception": "^5.0",
     "codeception/module-yii2": "*",
     "codeception/module-asserts": "*",
     "codeception/module-datafactory": "*",
@@ -59,6 +60,9 @@
     },
     "fxp-asset": {
       "enabled": false
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
     }
   },
   "repositories": [
