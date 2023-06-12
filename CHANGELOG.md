@@ -18,6 +18,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * Removed previously deprecated table auto-creation methods and properties
 * Removed previously deprecated loggerCategory from SwivelComponent
 
+2.1.1 - June 2023
+-----------------
+* Fix - require explicit psr/log:^1.0 constraint
+
 2.1.0 - April 2023
 -----------------
 * Enable support for PHP 8.2 (with caution about unsupported codeception module)
