@@ -64,28 +64,11 @@ class SwivelLogger extends AbstractLogger
      */
     public function getLogLevelAsInt(string $level): int
     {
-        switch ($level) {
-            case LogLevel::DEBUG:
-            case '8':
-                return Logger::LEVEL_TRACE;
-
-            case LogLevel::EMERGENCY:
-            case LogLevel::ERROR:
-            case LogLevel::CRITICAL:
-            case '1':
-                return Logger::LEVEL_ERROR;
-
-            case LogLevel::ALERT:
-            case LogLevel::WARNING:
-            case '2':
-                return Logger::LEVEL_WARNING;
-
-
-            case LogLevel::INFO:
-            case LogLevel::NOTICE:
-            case '4':
-            default:
-                return Logger::LEVEL_INFO;
-        }
+        return match ($level) {
+            LogLevel::DEBUG, '8' => Logger::LEVEL_TRACE,
+            LogLevel::EMERGENCY, LogLevel::ERROR, LogLevel::CRITICAL, '1' => Logger::LEVEL_ERROR,
+            LogLevel::ALERT, LogLevel::WARNING, '2' => Logger::LEVEL_WARNING,
+            default => Logger::LEVEL_INFO,
+        };
     }
 }
